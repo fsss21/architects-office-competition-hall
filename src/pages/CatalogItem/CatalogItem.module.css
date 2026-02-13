@@ -1,0 +1,325 @@
+.catalogItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 40px 20px;
+  padding-top: 100px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.catalogItemBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.catalogItemContent {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.catalogItemCenterText {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 0 20px;
+}
+
+
+.catalogItemCenterText h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.catalogItemCenterText p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Стили для страницы С фото */
+.catalogItemMainContent {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  margin-top: 20px;
+  height: calc(100vh - 300px);
+  min-height: 500px;
+  width: 100%;
+}
+
+/* Стили для страницы БЕЗ фото */
+.catalogItemMainContentCentered {
+  justify-content: center;
+  align-items: center;
+}
+
+.catalogItemMainContentMenu {
+  display: flex;
+  max-width: 700px;
+  padding: 20px;
+}
+
+/* Стили для страницы БЕЗ фото */
+.catalogItemMainContentCentered .catalogItemMainContentMenu {
+  max-width: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Стили для страницы С фото */
+.catalogItemTextBlock {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+/* Стили для страницы БЕЗ фото */
+.catalogItemTextBlockCentered {
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0;
+  max-width: 800px;
+  width: 100%;
+  min-height: 650px;
+}
+
+/* Стили для страницы С фото */
+.catalogItemBottomNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  bottom: 2%;
+}
+
+/* Стили для страницы БЕЗ фото */
+.catalogItemTextBlockCentered .catalogItemBottomNavigation {
+  position: relative;
+  bottom: auto;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 20px;
+}
+
+* button{
+  font-family: 'Anticva', serif;
+}
+
+.catalogItemControlsNavMenu {
+  display: flex;
+  gap: 15px;
+}
+
+.catalogItemTextBlock h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #291600;
+  font-family: 'Anticva', serif;
+}
+
+.catalogItemTextBlock p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #221102;
+  font-family: 'Raleway-v4020', serif;
+}
+
+.catalogItemTextBlock p:last-child {
+  margin-bottom: 0;
+}
+
+.catalogItemTextNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.catalogItemTextNavBtn {
+  background: none;
+  color: #021A2A;
+  border: 2px solid #021A2A;
+  border-radius: 2px;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.catalogItemTextNavBtn:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.catalogItemTextNavBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.catalogItemTextCounter {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+}
+
+.catalogItemTextPoint {
+  text-transform: uppercase;
+}
+
+.catalogItemTextDescription {
+  margin: 0;
+}
+
+/* Стили для страницы С фото */
+.catalogItemGalleryBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+}
+
+.catalogItemGalleryWrapper {
+  width: 100%;
+  max-width: 800px;
+}
+
+.catalogItemGalleryWrapper :global(div[class*="photoGallery"]) {
+  max-width: 800px;
+}
+
+.catalogItemGalleryWrapper :global(div[class*="photoGalleryContainer"]) {
+  min-height: 400px;
+  max-height: 500px;
+}
+
+.catalogItemGalleryControls{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+}
+
+.catalogItemNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.catalogItemFullscreenButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.catalogItemGalleryNavBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background: none;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.catalogItemGalleryNavBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.catalogItemGalleryNavBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.catalogItemGalleryCounter {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+  font-family: 'Raleway-v4020', serif;
+}
+
+.catalogItemBtn {
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.catalogItemBtnMainMenu {
+  background: none;
+  color: #021A2A;
+  border: 2px solid #021A2A;
+  border-radius: 2px;
+}
+
+.catalogItemBtnMainMenu:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 968px) {
+  .catalogItemMainContent {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .catalogItemTextBlock {
+    flex: none;
+  }
+
+  .catalogItemGalleryBlock {
+    flex: none;
+  }
+
+  .catalogItemCenterText h1 {
+    font-size: 2rem;
+  }
+
+  .catalogItemCenterText p {
+    font-size: 1rem;
+  }
+}
