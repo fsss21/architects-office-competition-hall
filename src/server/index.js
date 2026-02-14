@@ -69,6 +69,7 @@ try {
 // Переменные для хранения путей к файлам данных
 let GAME_ITEMS_FILE = null;
 let STATISTICS_FILE = null;
+let TINDER_VOTES_FILE = null;
 
 // Middleware
 app.use(cors());
@@ -98,6 +99,16 @@ async function initializeData() {
     
     // Инициализируем директории данных через ServerSetup
     await serverSetup.initializeDataDir();
+
+    // Tinder votes file
+    const tinderVotesFile = await serverSetup.getTinderVotesFile();
+    TINDER_VOTES_FILE = tinderVotesFile;
+    const tinderVotesExists = await fs.pathExists(TINDER_VOTES_FILE);
+    if (!tinderVotesExists) {
+      await fs.ensureDir(path.dirname(TINDER_VOTES_FILE));
+      await fs.writeJson(TINDER_VOTES_FILE, {}, { spaces: 2 });
+      console.log('✅ Создан файл tinderVotes.json');
+    }
 
     // Проверяем существование файлов и создаем, если их нет
     const gameItemsExists = await fs.pathExists(GAME_ITEMS_FILE);
@@ -303,6 +314,53 @@ app.get('/api/statistics', async (req, res) => {
   } catch (error) {
     console.error('Ошибка чтения статистики:', error);
     res.status(500).json({ error: 'Не удалось загрузить статистику' });
+  }
+});
+
+// ==================== API для Tinder-голосования ====================
+
+// GET /api/tinder/votes - получить количество голосов по каждому предмету
+app.get('/api/tinder/votes', async (req, res) => {
+  try {
+    if (!TINDER_VOTES_FILE) {
+      TINDER_VOTES_FILE = await serverSetup.getTinderVotesFile();
+    }
+    const exists = await fs.pathExists(TINDER_VOTES_FILE);
+    if (exists) {
+      const data = await fs.readJson(TINDER_VOTES_FILE);
+      res.json(typeof data === 'object' && !Array.isArray(data) ? data : {});
+    } else {
+      res.json({});
+    }
+  } catch (error) {
+    console.error('Ошибка чтения tinder votes:', error);
+    res.status(500).json({ error: 'Не удалось загрузить голоса' });
+  }
+});
+
+// POST /api/tinder/vote - добавить голос за предмет
+app.post('/api/tinder/vote', async (req, res) => {
+  try {
+    if (!TINDER_VOTES_FILE) {
+      TINDER_VOTES_FILE = await serverSetup.getTinderVotesFile();
+    }
+    await fs.ensureDir(path.dirname(TINDER_VOTES_FILE));
+    let votes = {};
+    if (await fs.pathExists(TINDER_VOTES_FILE)) {
+      const data = await fs.readJson(TINDER_VOTES_FILE);
+      votes = typeof data === 'object' && !Array.isArray(data) ? data : {};
+    }
+    const itemId = parseInt(req.body.itemId, 10);
+    if (!Number.isInteger(itemId) || itemId < 1) {
+      return res.status(400).json({ error: 'Некорректный itemId' });
+    }
+    const key = String(itemId);
+    votes[key] = (votes[key] || 0) + 1;
+    await fs.writeJson(TINDER_VOTES_FILE, votes, { spaces: 2 });
+    res.json({ itemId, votes: votes[key] });
+  } catch (error) {
+    console.error('Ошибка сохранения голоса:', error);
+    res.status(500).json({ error: 'Не удалось сохранить голос' });
   }
 });
 

@@ -10,8 +10,13 @@ function MainMenu() {
   const [imageSrc, setImageSrc] = useState(mainMenuImg)
 
   useEffect(() => {
-    const is4K = window.innerWidth >= 2560 || window.innerHeight >= 1440
-    setImageSrc(is4K ? mainMenuImg4k : mainMenuImg)
+    const updateSrc = () => {
+      const is4K = window.innerWidth >= 2560 || window.innerHeight >= 1440
+      setImageSrc(is4K ? mainMenuImg4k : mainMenuImg)
+    }
+    updateSrc()
+    window.addEventListener('resize', updateSrc)
+    return () => window.removeEventListener('resize', updateSrc)
   }, [])
 
   const handleCatalog = () => {
@@ -23,7 +28,7 @@ function MainMenu() {
   }
 
   const handleRateProjects = () => {
-    // TODO: переход на страницу оценить проекты
+    navigate('/tinder')
   }
 
   return (

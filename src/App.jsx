@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { CatalogFilterProvider } from './context/CatalogFilterContext'
+import { TinderProvider } from './context/TinderContext'
 import VideoPreview from './components/VideoPreview/VideoPreview'
 import MainMenu from './pages/MainMenu/MainMenu'
 import Catalog from './pages/Catalog/Catalog'
 import CatalogItem from './pages/CatalogItem/CatalogItem'
+import TinderHome from './pages/TinderHome/TinderHome'
+import TinderFinish from './pages/TinderFinish/TinderFinish'
+import TinderLeader from './pages/TinderLeader/TinderLeader'
 
 function AppContent() {
   const navigate = useNavigate()
@@ -25,13 +29,18 @@ function AppContent() {
 
   return (
     <CatalogFilterProvider>
-      {showVideo && <VideoPreview onComplete={handleVideoComplete} />}
-      <Routes>
-        <Route path="/" element={<MainMenu />} />
-        <Route path="/submenu" element={<CatalogItem />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/catalog/:id" element={<CatalogItem />} />
-      </Routes>
+      <TinderProvider>
+        {showVideo && <VideoPreview onComplete={handleVideoComplete} />}
+        <Routes>
+          <Route path="/" element={<MainMenu />} />
+          <Route path="/submenu" element={<CatalogItem />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog/:id" element={<CatalogItem />} />
+          <Route path="/tinder" element={<TinderHome />} />
+          <Route path="/tinder/finish" element={<TinderFinish />} />
+          <Route path="/tinder/leaders" element={<TinderLeader />} />
+        </Routes>
+      </TinderProvider>
     </CatalogFilterProvider>
   )
 }

@@ -29,6 +29,8 @@ const CONFIG = {
   // Файлы данных проекта (относительно public/ или build/)
   gameItemsFile: path.join('data', 'catalogItems.json'),
   statisticsFile: path.join('data', 'progressPoints.json'),
+  // Голоса tinder — вне build/, чтобы не терялись при пересборке
+  tinderVotesFile: path.join('data', 'tinderVotes.json'),
 };
 
 /**
@@ -53,6 +55,7 @@ class ServerSetup {
         indexHtmlPath: CONFIG.indexHtmlPath,
         gameItemsFile: CONFIG.gameItemsFile,
         statisticsFile: CONFIG.statisticsFile,
+        tinderVotesFile: CONFIG.tinderVotesFile,
       };
 
       // Проверяем, что CONFIG правильно загружен
@@ -72,24 +75,31 @@ class ServerSetup {
         // В pkg режиме: данные в baseDir/data/ (рядом с launch.exe / server)
         this.gameItemsFile = path.join(this.baseDir, this.config.gameItemsFile);
         this.statisticsFile = path.join(this.baseDir, this.config.statisticsFile);
+        this.tinderVotesFile = path.join(this.baseDir, this.config.tinderVotesFile);
         this.gameItemsFileFallback = null;
         this.statisticsFileFallback = null;
+        this.tinderVotesFileFallback = null;
       } else {
         // В режиме разработки: сначала build/data/, затем public/data/
         const buildGameItemsPath = path.join(this.buildDir, this.config.gameItemsFile);
         const publicGameItemsPath = path.join(this.baseDir, 'public', this.config.gameItemsFile);
         const buildStatisticsPath = path.join(this.buildDir, this.config.statisticsFile);
         const publicStatisticsPath = path.join(this.baseDir, 'public', this.config.statisticsFile);
+        // tinderVotes храним в baseDir/data/ — не в build/, иначе теряются при npm run build
+        const baseTinderVotesPath = path.join(this.baseDir, this.config.tinderVotesFile);
         
         this.gameItemsFile = buildGameItemsPath;
         this.gameItemsFileFallback = publicGameItemsPath;
         this.statisticsFile = buildStatisticsPath;
         this.statisticsFileFallback = publicStatisticsPath;
+        this.tinderVotesFile = baseTinderVotesPath;
+        this.tinderVotesFileFallback = null;
       }
 
       // Привязываем методы к контексту для pkg режима
       this.getGameItemsFile = this.getGameItemsFile.bind(this);
       this.getStatisticsFile = this.getStatisticsFile.bind(this);
+      this.getTinderVotesFile = this.getTinderVotesFile.bind(this);
     } catch (error) {
       console.error('❌ Ошибка в конструкторе ServerSetup:', error);
       throw error;
@@ -194,6 +204,18 @@ class ServerSetup {
       return this.statisticsFile;
     } catch (error) {
       console.error('❌ Ошибка в getStatisticsFile:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Получить путь к файлу tinderVotes.json
+   */
+  async getTinderVotesFile() {
+    try {
+      return this.tinderVotesFile;
+    } catch (error) {
+      console.error('❌ Ошибка в getTinderVotesFile:', error);
       throw error;
     }
   }

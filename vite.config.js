@@ -5,7 +5,12 @@ export default defineConfig({
   plugins: [react()],
   root: '.',
   publicDir: 'public',
-   build: {
+  build: {
     outDir: 'build',
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001',
+    },
   },
 })
