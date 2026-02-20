@@ -5,7 +5,7 @@
   right: 0;
   padding: 20px 0;
   margin-left: 3%;
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,10 +24,14 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0;
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
 }
 
-/* Страница карточки каталога /catalog/:id — белый заголовок */
+/* Страница карточки каталога /catalog/:id */
+.headerOnItemPage {
+  top: 0;
+}
+
 .headerOnItemPage .headerTitle {
   color: #fff;
 }
@@ -102,7 +106,7 @@
 }
 
 .headerBtnFilters {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   width: 50px;
   height: 50px;
   font-size: 16px;
@@ -115,7 +119,7 @@
 }
 
 .headerBtnSearch {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   width: 50px;
   height: 50px;
   font-size: 16px;
@@ -142,8 +146,8 @@
   top: 100%;
   right: 0;
   margin-top: 8px;
-  min-width: 420px;
-  max-width: 500px;
+  min-width: 500px;
+  max-width: 550px;
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -186,7 +190,7 @@
 
 
 .headerDropdownTitle {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   font-size: 18px;
   color: #021A2A;
   margin: 0;
@@ -206,12 +210,27 @@
   line-height: 1;
   cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
+
+.headerSelectAllBtn {
+  font-family: 'Anticva';
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #CBB293;
+  color: #021A2A;
+  border: 1px solid #021A2A;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.headerSelectAllBtn:hover {
+  background: #b89f7d;
+}
 
 .headerFilterBlock {
   margin-bottom: 20px;
@@ -237,9 +256,9 @@
 
 .headerFilterLabel {
   display: block;
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   font-size: 18px;
-  color: #221102;
+  color: #021A2A;
 }
 
 .headerFilterOptions {
@@ -259,29 +278,35 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 18px;
-  color: #221102;
+  font-size: 14px;
+  color: #021A2A;
   cursor: pointer;
+  width: 100%;
 }
 
 .headerFilterCheck input {
   accent-color: #CBB293;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  min-height: 20px;
+  height: 25px;
+  min-width: 20px;
+  flex-shrink: 0;
   background: none;
   border: 1px solid #826748;
   appearance: none;
   -webkit-appearance: none;
   border-radius: 2px;
+  margin-top: 2px;
 }
 
 .headerFilterCheck input:checked {
   background: #98a2db url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center / 12px no-repeat;
   border-color: #021A2A;
+  font-size: 18px;
 }
 
 .headerCollapseBtn {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   font-size: 14px;
   color: #666;
   background: none;
@@ -298,7 +323,7 @@
 }
 
 .headerShowBtn {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   display: block;
   width: 100%;
   margin-top: 16px;

@@ -22,7 +22,6 @@ function CatalogItem() {
   const [imageSrc, setImageSrc] = useState(catalogItemImg)
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [noPhotoImageSrc, setNoPhotoImageSrc] = useState(catalogItemImg)
 
   const rawId = id ? parseInt(id, 10) : NaN
   const currentItemId = Number.isInteger(rawId) ? rawId : null
@@ -34,7 +33,7 @@ function CatalogItem() {
 
   const currentPoint = catalogItems[activeIndex] || null
 
-  const itemImagesById = useMemo(() => ({ 4: gabeImg, 5: stamovImg, 7: petrovImg }), [])
+  const itemImagesById = useMemo(() => ({ 1: gabeImg, 2: stamovImg, 7: petrovImg }), [])
   const currentPhotos = useMemo(() => {
     if (!currentPoint) return []
     const assetImg = itemImagesById[currentPoint.id]
@@ -44,7 +43,6 @@ function CatalogItem() {
   useEffect(() => {
     const is4K = window.innerWidth >= 2560 || window.innerHeight >= 1440
     setImageSrc(is4K ? catalogItemImg4k : catalogItemImg)
-    setNoPhotoImageSrc(is4K ? catalogItemImg4k : catalogItemImg)
 
     fetch('/data/catalogItems.json')
       .then(res => {
@@ -135,14 +133,11 @@ function CatalogItem() {
     setIsFullscreen(false)
   }
 
-  const backgroundImageSrc = hasPhotos ? imageSrc : noPhotoImageSrc
-  const currentTexts = currentPoint?.texts || []
-
   return (
     <div className={styles.catalogItem}>
       <div
         className={styles.catalogItemBackground}
-        style={{ backgroundImage: `url(${backgroundImageSrc})` }}
+        style={{ backgroundImage: `url(${imageSrc})` }}
       />
       <Header />
       <div className={styles.catalogItemContent}>
@@ -153,99 +148,76 @@ function CatalogItem() {
           onNext={handleNextItem}
           onPointClick={handlePointClick}
         />
-        <div className={`${styles.catalogItemMainContent} ${!hasPhotos ? styles.catalogItemMainContentCentered : ''}`}>
+        <div className={styles.catalogItemMainContent}>
           <div className={styles.catalogItemMainContentMenu}>
-            <div className={`${styles.catalogItemTextBlock} ${!hasPhotos ? styles.catalogItemTextBlockCentered : ''}`}>
+            <div className={styles.catalogItemTextBlock}>
               {!catalogItems.length ? (
                 <p className={styles.catalogItemTextDescription}>Загрузка…</p>
               ) : currentPoint ? (
                 <>
-                  <h2
-                    className={styles.catalogItemTextPoint}
-                    dangerouslySetInnerHTML={{ __html: currentPoint.name || '' }}
-                  />
-                  {currentTexts.length > 0 && (
-                    <p
-                      className={styles.catalogItemTextDescription}
-                      dangerouslySetInnerHTML={{ __html: currentTexts[currentTextIndex] || '' }}
-                    />
+                  <h2 className={styles.catalogItemTextPoint}>
+                    {currentPoint.name || ''}
+                  </h2>
+                  {currentPoint.conceptName && (
+                    <p className={styles.catalogItemField}>
+                      <span className={styles.catalogItemFieldLabel}>Название:</span> {currentPoint.conceptName}
+                    </p>
+                  )}
+                  {currentPoint.creationTime && (
+                    <p className={styles.catalogItemField}>
+                      <span className={styles.catalogItemFieldLabel}>Время создания:</span> {currentPoint.creationTime}
+                    </p>
+                  )}
+                  {currentPoint.concept && (
+                    <p className={styles.catalogItemField}>
+                      <span className={styles.catalogItemFieldLabel}>Концепция:</span> {currentPoint.concept}
+                    </p>
+                  )}
+                  {currentPoint.features && (
+                    <p className={styles.catalogItemField}>
+                      <span className={styles.catalogItemFieldLabel}>Особенности:</span> {currentPoint.features}
+                    </p>
+                  )}
+                  {currentPoint.history && (
+                    <p className={styles.catalogItemField}>
+                      <span className={styles.catalogItemFieldLabel}>История:</span> {currentPoint.history}
+                    </p>
+                  )}
+                  {currentPoint.popularRating && (
+                    <p className={styles.catalogItemField}>
+                      <span className={styles.catalogItemFieldLabel}>Народная оценка:</span> {currentPoint.popularRating}
+                    </p>
                   )}
                   <div className={styles.catalogItemBottomNavigation}>
-                    {!hasPhotos ? (
-                      <>
-                        {currentTexts.length > 1 && (
-                          <div className={styles.catalogItemTextNavigation}>
-                            <button
-                              className={styles.catalogItemTextNavBtn}
-                              onClick={handlePrevText}
-                              disabled={currentTextIndex === 0}
-                              aria-label="Предыдущий текст"
-                            >
-                              <ArrowBackIosNewIcon />
-                            </button>
-                            <button
-                              className={styles.catalogItemTextNavBtn}
-                              onClick={handleNextText}
-                              disabled={currentTextIndex === currentTexts.length - 1}
-                              aria-label="Следующий текст"
-                            >
-                              <ArrowForwardIosIcon />
-                            </button>
-                          </div>
-                        )}
-                        <button className={`${styles.catalogItemBtn} ${styles.catalogItemBtnMainMenu}`} onClick={handleMainMenu}>
-                          Перейти в каталог
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.catalogItemControlsNavMenu}>
-                          <button className={`${styles.catalogItemBtn} ${styles.catalogItemBtnMainMenu}`} onClick={handleMainMenu}>
-                            Перейти в каталог
-                          </button>
-                        </div>
-                        {currentTexts.length > 1 && (
-                          <div className={styles.catalogItemTextNavigation}>
-                            <button
-                              className={styles.catalogItemTextNavBtn}
-                              onClick={handlePrevText}
-                              disabled={currentTextIndex === 0}
-                              aria-label="Предыдущий текст"
-                            >
-                              <ArrowBackIosNewIcon />
-                            </button>
-                            <button
-                              className={styles.catalogItemTextNavBtn}
-                              onClick={handleNextText}
-                              disabled={currentTextIndex === currentTexts.length - 1}
-                              aria-label="Следующий текст"
-                            >
-                              <ArrowForwardIosIcon />
-                            </button>
-                          </div>
-                        )}
-                      </>
-                    )}
+                    <button
+                      className={`${styles.catalogItemBtn} ${styles.catalogItemBtnRate}`}
+                      onClick={() => navigate('/tinder/vote')}
+                    >
+                      Оценить этот проект
+                    </button>
+                    <button className={`${styles.catalogItemBtn} ${styles.catalogItemBtnMainMenu}`} onClick={handleMainMenu}>
+                      Перейти в каталог
+                    </button>
                   </div>
                 </>
               ) : null}
             </div>
           </div>
 
-          {hasPhotos && (
-            <div className={styles.catalogItemGalleryBlock}>
-              <div className={styles.catalogItemGalleryWrapper}>
-                <PhotoGallery
-                  photos={currentPhotos}
-                  showControls={false}
-                  showArrows={isFullscreen}
-                  showFullscreen={isFullscreen}
-                  onCloseFullscreen={handleCloseFullscreen}
-                  currentIndex={currentPhotoIndex}
-                  onIndexChange={setCurrentPhotoIndex}
-                />
-              </div>
-              {currentPhotos.length > 0 && (
+          <div className={styles.catalogItemGalleryBlock}>
+            {hasPhotos ? (
+              <>
+                <div className={styles.catalogItemGalleryWrapper}>
+                  <PhotoGallery
+                    photos={currentPhotos}
+                    showControls={false}
+                    showArrows={isFullscreen}
+                    showFullscreen={isFullscreen}
+                    onCloseFullscreen={handleCloseFullscreen}
+                    currentIndex={currentPhotoIndex}
+                    onIndexChange={setCurrentPhotoIndex}
+                  />
+                </div>
                 <div className={styles.catalogItemGalleryControls}>
                   <div className={styles.catalogItemNav}>
                     <button
@@ -276,9 +248,13 @@ function CatalogItem() {
                     <FullscreenIcon fontSize='large' />
                   </button>
                 </div>
-              )}
-            </div>
-          )}
+              </>
+            ) : (
+              <div className={styles.catalogItemNoPhoto}>
+                <p>Изображение отсутствует</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

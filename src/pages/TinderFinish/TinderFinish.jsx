@@ -10,7 +10,7 @@ import gabeImg from '../../assets/gabe_img.png'
 import stamovImg from '../../assets/stamov_img.png'
 import petrovImg from '../../assets/petrov_img.png'
 
-const itemImages = { 4: gabeImg, 5: stamovImg, 7: petrovImg }
+const itemImages = { 1: gabeImg, 2: stamovImg, 7: petrovImg }
 
 function TinderFinish() {
   const navigate = useNavigate()

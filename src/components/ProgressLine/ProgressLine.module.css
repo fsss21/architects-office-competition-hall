@@ -22,7 +22,7 @@
   color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
 }
 
 .progressLineArrow:hover:not(:disabled) {
@@ -90,7 +90,7 @@
 }
 
 .progressLineName {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   font-size: 1rem;
   font-weight: 600;
   color: #fff;

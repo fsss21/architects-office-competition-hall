@@ -11,7 +11,7 @@ import petrovImg from '../../assets/petrov_img.png'
 import itemFrameImg from '../../assets/item_frame_img.png'
 import itemFrameImg4k from '../../assets/item_frame_img-4k.png'
 
-const itemImages = { 4: gabeImg, 5: stamovImg, 7: petrovImg }
+const itemImages = { 1: gabeImg, 2: stamovImg, 7: petrovImg }
 
 function TinderLeader() {
   const navigate = useNavigate()
@@ -78,7 +78,7 @@ function TinderLeader() {
             const pct = totalVotes > 0 ? ((item.votes / totalVotes) * 100).toFixed(1) : '0'
             return (
               <div key={item.id} className={styles.tinderLeaderBlock}>
-                <span className={styles.tinderLeaderNum}>{idx + 1}.</span>
+                <span className={styles.tinderLeaderNum}>{idx + 1}</span>
                 <div className={styles.tinderLeaderFrameWrap}>
                   <div className={styles.tinderLeaderItemImage}>
                     {img && <img src={img} alt={item.name} onError={(e) => (e.target.style.display = 'none')} />}
@@ -88,7 +88,7 @@ function TinderLeader() {
                 <div>
                   <p className={styles.tinderLeaderLabel}>{item.label}</p>
                   <p className={styles.tinderLeaderVotes}>
-                    {item.votes} голосов ({pct}%)
+                    {item.votes} голосов
                   </p>
                 </div>
               </div>

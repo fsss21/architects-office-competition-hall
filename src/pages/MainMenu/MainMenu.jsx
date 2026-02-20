@@ -24,7 +24,7 @@ function MainMenu() {
   }
 
   const handleStatistics = () => {
-    // TODO: переход на страницу статистики
+    navigate('/tinder/leaders')
   }
 
   const handleRateProjects = () => {

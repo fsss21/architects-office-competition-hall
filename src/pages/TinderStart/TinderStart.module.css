@@ -1,0 +1,101 @@
+.tinderStart {
+  min-height: 100vh;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Anticva' !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.tinderStartContent {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+}
+
+.tinderStartTitle {
+  font-family: 'Anticva';
+  font-size: 36px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #021A2A;
+  letter-spacing: 2px;
+  margin: 0;
+  text-align: center;
+}
+
+.tinderStartBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.tinderStartBtn {
+  font-family: 'Anticva';
+  padding: 16px 48px;
+  font-size: 20px;
+  background: #F3DFC6;
+  color: #021A2A;
+  border: solid #021A2A 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tinderStartBtn:hover {
+  transform: translateY(-2px);
+  background: rgba(243, 223, 198, 0.9);
+}
+
+.tinderBackBtn {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  font-family: 'Anticva';
+  padding: 12px 24px;
+  font-size: 18px;
+  background: #F3DFC6;
+  color: #021A2A;
+  border: solid #021A2A 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tinderBackBtn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .tinderStartContent {
+    padding: 40px 20px;
+  }
+
+  .tinderStartTitle {
+    font-size: 24px;
+  }
+
+  .tinderStartBtn {
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+
+  .tinderBackBtn {
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}

@@ -1,16 +1,3 @@
-@font-face {
-  font-family: 'Anticva';
-  src: url('https://cdn.jsdelivr.net/gh/KonstatinKrastev/Anticva-Font@main/fonts/Anticva-Regular.woff2') format('woff2'),
-       url('https://cdn.jsdelivr.net/gh/KonstatinKrastev/Anticva-Font@main/fonts/Anticva-Regular.woff') format('woff'),
-       url('https://cdn.jsdelivr.net/gh/KonstatinKrastev/Anticva-Font@main/fonts/Anticva-Regular.ttf') format('truetype'),
-       url('/fonts/Anticva-Regular.woff2') format('woff2'),
-       url('/fonts/Anticva-Regular.woff') format('woff'),
-       url('/fonts/Anticva-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 .tinder {
   min-height: 100vh;
   padding: 40px 20px;
@@ -19,7 +6,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Anticva', serif !important;
+  font-family: 'Anticva' !important;
 }
 
 .tinderContent {
@@ -35,7 +22,7 @@
   position: absolute;
   bottom: 0;
   left: 15%;
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   padding: 12px 24px;
   font-size: 18px;
   background: none;
@@ -97,7 +84,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tinderStarCircle:hover {
+  transform: scale(1.1);
+  background: #FFD700;
 }
 
 .tinderStarIcon {
@@ -184,7 +177,7 @@
 }
 
 .tinderLearnMore {
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
   padding: 8px 20px;
   font-size: 14px;
   background: #F3DFC6;

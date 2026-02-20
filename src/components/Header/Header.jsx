@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useCatalogFilter, CATALOG_SECTIONS } from '../../context/CatalogFilterContext'
 import styles from './Header.module.css'
@@ -15,39 +15,43 @@ function Header() {
   const isCatalogItemPage = location.pathname.startsWith('/catalog/') && location.pathname !== '/catalog'
 
   const { selectedItemIds, setSelectedItemIds } = useCatalogFilter()
-
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [catalogItems, setCatalogItems] = useState([])
+  const [tempSelectedIds, setTempSelectedIds] = useState([])
   const [finalistsCollapsed, setFinalistsCollapsed] = useState(false)
   const [peopleFavoritesCollapsed, setPeopleFavoritesCollapsed] = useState(false)
-  const [catalogItemsForFilters, setCatalogItemsForFilters] = useState([])
+  const [allProjectsCollapsed, setAllProjectsCollapsed] = useState(false)
 
   useEffect(() => {
-    if (isCatalogPage && filtersOpen) {
+    if (isCatalogPage && filtersOpen && catalogItems.length === 0) {
       fetch('/data/catalogItems.json')
-        .then(res => (res.ok ? res.json() : null))
+        .then(res => (res.ok ? res.json() : []))
         .then(data => {
           const list = Array.isArray(data) ? data : []
-          setCatalogItemsForFilters(list)
+          setCatalogItems(list)
         })
-        .catch((err) => console.error('Header: failed to load catalog for filters', err))
+        .catch(() => setCatalogItems([]))
     }
-  }, [isCatalogPage, filtersOpen])
+  }, [isCatalogPage, filtersOpen, catalogItems.length])
 
-  const allItemIds = useMemo(() => catalogItemsForFilters.map(i => i.id), [catalogItemsForFilters])
-  const finalists = useMemo(() => catalogItemsForFilters.filter(i => i.section === CATALOG_SECTIONS.FINALISTS), [catalogItemsForFilters])
-  const peopleFavorites = useMemo(() => catalogItemsForFilters.filter(i => i.section === CATALOG_SECTIONS.PEOPLE_FAVORITES), [catalogItemsForFilters])
+  useEffect(() => {
+    if (filtersOpen) {
+      setTempSelectedIds([...selectedItemIds])
+    }
+  }, [filtersOpen, selectedItemIds])
 
-  const isItemSelected = (id) => selectedItemIds.length === 0 || selectedItemIds.includes(id)
+  const finalists = catalogItems.filter(i => i.section === CATALOG_SECTIONS.FINALISTS)
+  const peopleFavorites = catalogItems.filter(i => i.section === CATALOG_SECTIONS.PEOPLE_FAVORITES)
+
+  const isItemChecked = (id) => tempSelectedIds.includes(id)
 
   const handleToggleItem = (id) => {
-    setSelectedItemIds(prev => {
-      const next = prev.length === 0 ? allItemIds : [...prev]
-      if (next.includes(id)) {
-        const filtered = next.filter(i => i !== id)
-        return filtered.length === 0 ? [] : filtered
+    setTempSelectedIds(prev => {
+      if (prev.includes(id)) {
+        return prev.filter(i => i !== id)
       }
-      return [...next, id].sort((a, b) => a - b)
+      return [...prev, id].sort((a, b) => a - b)
     })
   }
 
@@ -55,15 +59,16 @@ function Header() {
     setSearchOpen(false)
     setFiltersOpen(prev => !prev)
   }
+
   const handleSearchToggle = () => {
     setFiltersOpen(false)
     setSearchOpen(prev => !prev)
   }
-  const handleOverlayClick = () => {
+
+  const handleShowFilters = () => {
+    setSelectedItemIds(tempSelectedIds)
     setFiltersOpen(false)
-    setSearchOpen(false)
   }
-  const handleShowFilters = () => setFiltersOpen(false)
 
   return (
     <>
@@ -87,71 +92,103 @@ function Header() {
                 <div className={styles.headerDropdown} onClick={e => e.stopPropagation()}>
                   <div className={styles.headerDropdownHeader}>
                     <h3 className={styles.headerDropdownTitle}>Фильтры</h3>
-                    <button type="button" className={styles.headerDropdownClose} onClick={() => setFiltersOpen(false)} aria-label="Закрыть фильтры">
+                    <button
+                      type="button"
+                      className={styles.headerDropdownClose}
+                      onClick={() => setFiltersOpen(false)}
+                      aria-label="Закрыть фильтры"
+                    >
                       <CloseIcon />
                     </button>
                   </div>
 
-                  <div className={`${styles.headerFilterBlock} ${finalistsCollapsed ? styles.headerFilterBlockCollapsed : ''}`}>
-                    <div className={styles.headerFilterLabelWrap}>
-                      <span className={styles.headerFilterLabel}>Финалисты</span>
-                      <button
-                        type="button"
-                        className={styles.headerCollapseBtn}
-                        onClick={() => setFinalistsCollapsed(prev => !prev)}
-                        aria-expanded={!finalistsCollapsed}
-                      >
-                        {finalistsCollapsed ? 'Развернуть' : 'Свернуть'}
-                        {finalistsCollapsed ? <ExpandMoreIcon fontSize="small" /> : <ExpandLessIcon fontSize="small" />}
-                      </button>
-                    </div>
-                    {!finalistsCollapsed && (
-                      <div className={styles.headerFilterOptions}>
-                        {finalists.map(item => (
-                          <label key={item.id} className={styles.headerFilterCheck}>
-                            <input
-                              type="checkbox"
-                              checked={isItemSelected(item.id)}
-                              onChange={() => handleToggleItem(item.id)}
-                            />
-                            {item.name}
-                          </label>
-                        ))}
-                        {finalists.length === 0 && (
-                          <span className={styles.headerFilterEmpty}>Нет элементов</span>
-                        )}
+                  {finalists.length > 0 && (
+                    <div className={`${styles.headerFilterBlock} ${finalistsCollapsed ? styles.headerFilterBlockCollapsed : ''}`}>
+                      <div className={styles.headerFilterLabelWrap}>
+                        <span className={styles.headerFilterLabel}>Финалисты</span>
+                        <button
+                          type="button"
+                          className={styles.headerCollapseBtn}
+                          onClick={() => setFinalistsCollapsed(prev => !prev)}
+                          aria-expanded={!finalistsCollapsed}
+                        >
+                          {finalistsCollapsed ? 'Развернуть' : 'Свернуть'}
+                          {finalistsCollapsed ? <ExpandMoreIcon fontSize="small" /> : <ExpandLessIcon fontSize="small" />}
+                        </button>
                       </div>
-                    )}
-                  </div>
+                      {!finalistsCollapsed && (
+                        <div className={styles.headerFilterOptions}>
+                          {finalists.map(item => (
+                            <label key={item.id} className={styles.headerFilterCheck}>
+                              <input
+                                type="checkbox"
+                                checked={isItemChecked(item.id)}
+                                onChange={() => handleToggleItem(item.id)}
+                              />
+                              {item.name} — «{item.label}»
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
-                  <div className={`${styles.headerFilterBlock} ${peopleFavoritesCollapsed ? styles.headerFilterBlockCollapsed : ''}`}>
+                  {peopleFavorites.length > 0 && (
+                    <div className={`${styles.headerFilterBlock} ${peopleFavoritesCollapsed ? styles.headerFilterBlockCollapsed : ''}`}>
+                      <div className={styles.headerFilterLabelWrap}>
+                        <span className={styles.headerFilterLabel}>Народные любимцы</span>
+                        <button
+                          type="button"
+                          className={styles.headerCollapseBtn}
+                          onClick={() => setPeopleFavoritesCollapsed(prev => !prev)}
+                          aria-expanded={!peopleFavoritesCollapsed}
+                        >
+                          {peopleFavoritesCollapsed ? 'Развернуть' : 'Свернуть'}
+                          {peopleFavoritesCollapsed ? <ExpandMoreIcon fontSize="small" /> : <ExpandLessIcon fontSize="small" />}
+                        </button>
+                      </div>
+                      {!peopleFavoritesCollapsed && (
+                        <div className={styles.headerFilterOptions}>
+                          {peopleFavorites.map(item => (
+                            <label key={item.id} className={styles.headerFilterCheck}>
+                              <input
+                                type="checkbox"
+                                checked={isItemChecked(item.id)}
+                                onChange={() => handleToggleItem(item.id)}
+                              />
+                              {item.name} — {item.label}
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className={`${styles.headerFilterBlock} ${allProjectsCollapsed ? styles.headerFilterBlockCollapsed : ''}`}>
                     <div className={styles.headerFilterLabelWrap}>
-                      <span className={styles.headerFilterLabel}>Народные любимцы</span>
+                      <span className={styles.headerFilterLabel}>Все проекты</span>
                       <button
                         type="button"
                         className={styles.headerCollapseBtn}
-                        onClick={() => setPeopleFavoritesCollapsed(prev => !prev)}
-                        aria-expanded={!peopleFavoritesCollapsed}
+                        onClick={() => setAllProjectsCollapsed(prev => !prev)}
+                        aria-expanded={!allProjectsCollapsed}
                       >
-                        {peopleFavoritesCollapsed ? 'Развернуть' : 'Свернуть'}
-                        {peopleFavoritesCollapsed ? <ExpandMoreIcon fontSize="small" /> : <ExpandLessIcon fontSize="small" />}
+                        {allProjectsCollapsed ? 'Развернуть' : 'Свернуть'}
+                        {allProjectsCollapsed ? <ExpandMoreIcon fontSize="small" /> : <ExpandLessIcon fontSize="small" />}
                       </button>
                     </div>
-                    {!peopleFavoritesCollapsed && (
+                    {!allProjectsCollapsed && (
                       <div className={styles.headerFilterOptions}>
-                        {peopleFavorites.map(item => (
+                        {catalogItems.map(item => (
                           <label key={item.id} className={styles.headerFilterCheck}>
                             <input
                               type="checkbox"
-                              checked={isItemSelected(item.id)}
+                              checked={isItemChecked(item.id)}
                               onChange={() => handleToggleItem(item.id)}
                             />
-                            {item.name}
+                            {item.name} — {item.label}
                           </label>
                         ))}
-                        {peopleFavorites.length === 0 && (
-                          <span className={styles.headerFilterEmpty}>Нет элементов</span>
-                        )}
                       </div>
                     )}
                   </div>
@@ -198,7 +235,7 @@ function Header() {
       </header>
 
       {isCatalogPage && (filtersOpen || searchOpen) && (
-        <div className={styles.headerOverlay} onClick={handleOverlayClick} aria-hidden="true" />
+        <div className={styles.headerOverlay} onClick={() => { setFiltersOpen(false); setSearchOpen(false); }} aria-hidden="true" />
       )}
     </>
   )

@@ -57,26 +57,12 @@
   width: 100%;
 }
 
-/* Стили для страницы БЕЗ фото */
-.catalogItemMainContentCentered {
-  justify-content: center;
-  align-items: center;
-}
-
 .catalogItemMainContentMenu {
   display: flex;
   max-width: 700px;
   padding: 20px;
 }
 
-/* Стили для страницы БЕЗ фото */
-.catalogItemMainContentCentered .catalogItemMainContentMenu {
-  max-width: 100%;
-  width: 100%;
-  justify-content: center;
-}
-
-/* Стили для страницы С фото */
 .catalogItemTextBlock {
   position: relative;
   flex: 1;
@@ -86,43 +72,17 @@
   border-radius: 12px;
 }
 
-/* Стили для страницы БЕЗ фото */
-.catalogItemTextBlockCentered {
-  align-items: center;
-  text-align: center;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding: 0;
-  max-width: 800px;
-  width: 100%;
-  min-height: 650px;
-}
-
-/* Стили для страницы С фото */
 .catalogItemBottomNavigation {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  width: 100%;
-  max-width: 600px;
-  bottom: 2%;
-}
-
-/* Стили для страницы БЕЗ фото */
-.catalogItemTextBlockCentered .catalogItemBottomNavigation {
-  position: relative;
-  bottom: auto;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
-  width: 100%;
-  max-width: 100%;
-  padding: 0 20px;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 * button{
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
 }
 
 .catalogItemControlsNavMenu {
@@ -134,7 +94,7 @@
   font-size: 1.8rem;
   margin-bottom: 20px;
   color: #291600;
-  font-family: 'Anticva', serif;
+  font-family: 'Anticva';
 }
 
 .catalogItemTextBlock p {
@@ -142,6 +102,29 @@
   line-height: 1.6;
   color: #221102;
   font-family: 'Raleway-v4020', serif;
+}
+
+.catalogItemField {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #221102;
+  margin-bottom: 8px;
+}
+
+.catalogItemFieldLabel {
+  font-weight: 600;
+  color: #021A2A;
+}
+
+.catalogItemBtnRate {
+  background: #CBB293;
+  color: #021A2A;
+  border: 2px solid #021A2A;
+  text-transform: uppercase;
+}
+
+.catalogItemBtnRate:hover {
+  background: #b89f7d;
 }
 
 .catalogItemTextBlock p:last-child {
@@ -203,6 +186,25 @@
   justify-content: center;
   align-items: center;
   max-width: 900px;
+}
+
+.catalogItemNoPhoto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  min-height: 400px;
+  max-height: 500px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px dashed #526873;
+  border-radius: 8px;
+}
+
+.catalogItemNoPhoto p {
+  font-size: 18px;
+  color: #fff;
+  font-family: 'Anticva';
 }
 
 .catalogItemGalleryWrapper {

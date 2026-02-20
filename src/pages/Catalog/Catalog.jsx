@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCatalogFilter } from '../../context/CatalogFilterContext'
+import { useCatalogFilter, CATALOG_SECTIONS } from '../../context/CatalogFilterContext'
 import Header from '../../components/Header/Header'
 import styles from './Catalog.module.css'
 import catalogImg from '../../assets/catalog_img.png'
@@ -20,10 +20,9 @@ function Catalog() {
   const [imageSrc, setImageSrc] = useState(catalogImg)
   const [items, setItems] = useState([])
 
-  // Маппинг изображений предметов из assets по id
   const itemImages = {
-    4: gabeImg,
-    5: stamovImg,
+    1: gabeImg,
+    2: stamovImg,
     7: petrovImg
   }
 
@@ -103,7 +102,6 @@ function Catalog() {
       />
       <Header />
       <div className={styles.catalogContent}>
-        {/* Центральная область с предметами */}
         <div className={styles.catalogCenter}>
           <div className={styles.catalogItemsContainer}>
             {filteredItems.length === 0 ? (

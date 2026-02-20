@@ -15,9 +15,8 @@ import CloseIcon from '@mui/icons-material/Close'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import StarIcon from '@mui/icons-material/Star'
 
-const itemImages = { 4: gabeImg, 5: stamovImg, 7: petrovImg }
-// Конкурс памятника Ломоносову на Моховой (Москва), 1957
-const CREATION_YEARS = { 4: '1957', 5: '1957', 7: '1957' }
+const itemImages = { 1: gabeImg, 2: stamovImg, 7: petrovImg }
+const CREATION_YEARS = { 1: '1957', 2: '1957', 3: '1957', 4: '1957', 5: '1957', 6: '1957', 7: '1957' }
 
 function TinderHome() {
   const navigate = useNavigate()
@@ -64,11 +63,19 @@ function TinderHome() {
     navigate('/tinder/finish')
   }
 
+  const handleSuperLike = async () => {
+    if (!currentItem) return
+    setUserVotedItemId(currentItem.id)
+    await submitVote(currentItem.id)
+    await submitVote(currentItem.id)
+    navigate('/tinder/finish')
+  }
+
   const handleLearnMore = () => {
     if (currentItem) navigate(`/catalog/${currentItem.id}`)
   }
 
-  const handleBack = () => navigate('/')
+  const handleBack = () => navigate('/tinder')
 
   if (!items.length) {
     return (
@@ -92,9 +99,14 @@ function TinderHome() {
 
         <div className={styles.tinderCenter}>
           <div className={styles.tinderStarWrap}>
-            <div className={styles.tinderStarCircle}>
+            <button
+              type="button"
+              className={styles.tinderStarCircle}
+              onClick={handleSuperLike}
+              aria-label="Очень нравится"
+            >
               <StarIcon className={styles.tinderStarIcon} />
-            </div>
+            </button>
           </div>
 
           <div className={styles.tinderRow}>

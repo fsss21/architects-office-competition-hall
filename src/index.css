@@ -1,11 +1,6 @@
 @font-face {
   font-family: 'Anticva';
-  src: url('https://cdn.jsdelivr.net/gh/KonstatinKrastev/Anticva-Font@main/fonts/Anticva-Regular.woff2') format('woff2'),
-       url('https://cdn.jsdelivr.net/gh/KonstatinKrastev/Anticva-Font@main/fonts/Anticva-Regular.woff') format('woff'),
-       url('https://cdn.jsdelivr.net/gh/KonstatinKrastev/Anticva-Font@main/fonts/Anticva-Regular.ttf') format('truetype'),
-       url('/fonts/Anticva-Regular.woff2') format('woff2'),
-       url('/fonts/Anticva-Regular.woff') format('woff'),
-       url('/fonts/Anticva-Regular.ttf') format('truetype');
+  src: url('./fonts/Anticva.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

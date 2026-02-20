@@ -6,6 +6,7 @@ import VideoPreview from './components/VideoPreview/VideoPreview'
 import MainMenu from './pages/MainMenu/MainMenu'
 import Catalog from './pages/Catalog/Catalog'
 import CatalogItem from './pages/CatalogItem/CatalogItem'
+import TinderStart from './pages/TinderStart/TinderStart'
 import TinderHome from './pages/TinderHome/TinderHome'
 import TinderFinish from './pages/TinderFinish/TinderFinish'
 import TinderLeader from './pages/TinderLeader/TinderLeader'
@@ -36,7 +37,8 @@ function AppContent() {
           <Route path="/submenu" element={<CatalogItem />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:id" element={<CatalogItem />} />
-          <Route path="/tinder" element={<TinderHome />} />
+          <Route path="/tinder" element={<TinderStart />} />
+          <Route path="/tinder/vote" element={<TinderHome />} />
           <Route path="/tinder/finish" element={<TinderFinish />} />
           <Route path="/tinder/leaders" element={<TinderLeader />} />
         </Routes>
