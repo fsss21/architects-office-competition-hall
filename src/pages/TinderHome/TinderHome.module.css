@@ -257,3 +257,133 @@
     font-size: 28px !important;
   }
 }
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+  .tinder {
+    padding-top: 140px;
+  }
+
+  .tinderContent {
+    min-height: calc(100vh - 260px);
+  }
+
+  .tinderBackBtn {
+    font-size: 24px;
+    left: 18%;
+  }
+
+  .tinderCenter {
+    max-width: 900px;
+  }
+
+  .tinderCard {
+    width: min(560px, 55vw);
+  }
+
+  .tinderStarCircle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tinderStarIcon {
+    font-size: 42px !important;
+  }
+
+  .tinderFrameWrap {
+    max-height: min(700px, 70vh);
+  }
+
+  .tinderOverlay {
+    padding: 36px 60px 30px;
+  }
+
+  .tinderLabel {
+    font-size: 22px;
+  }
+
+  .tinderName {
+    font-size: 28px;
+  }
+
+  .tinderInitials,
+  .tinderYear {
+    font-size: 20px;
+  }
+
+  .tinderLearnMore {
+    font-size: 18px;
+    padding: 10px 28px;
+  }
+
+  .tinderBtnCircle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tinderBtnIcon {
+    font-size: 44px !important;
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .tinder {
+    padding-top: 180px;
+  }
+
+  .tinderContent {
+    min-height: calc(100vh - 360px);
+  }
+
+  .tinderBackBtn {
+    font-size: 34px;
+    left: 18%;
+  }
+
+  .tinderCard {
+    width: min(720px, 55vw);
+  }
+
+  .tinderStarCircle {
+    width: 110px;
+    height: 110px;
+  }
+
+  .tinderStarIcon {
+    font-size: 58px !important;
+  }
+
+  .tinderFrameWrap {
+    max-height: min(980px, 78vh);
+  }
+
+  .tinderOverlay {
+    padding: 44px 80px 36px;
+  }
+
+  .tinderLabel {
+    font-size: 30px;
+  }
+
+  .tinderName {
+    font-size: 36px;
+  }
+
+  .tinderInitials,
+  .tinderYear {
+    font-size: 26px;
+  }
+
+  .tinderLearnMore {
+    font-size: 22px;
+    padding: 12px 34px;
+  }
+
+  .tinderBtnCircle {
+    width: 110px;
+    height: 110px;
+  }
+
+  .tinderBtnIcon {
+    font-size: 64px !important;
+  }
+}

@@ -11,8 +11,10 @@ const CONFIG = {
   // Порт сервера (не конфликтует с Vite dev 5173)
   port: 3001,
 
-  // Режим kiosk (полноэкранный режим)
-  kioskMode: false,
+  // Режим kiosk (полноэкранный режим) — по умолчанию включён для exe (pkg)
+  kioskMode: typeof process.pkg !== 'undefined'
+    ? process.env.KIOSK_MODE !== 'false'
+    : process.env.KIOSK_MODE === 'true',
 
   // Автоматически открывать браузер при запуске
   openBrowser: true,
@@ -325,6 +327,8 @@ class ServerSetup {
 
       if (this.config.kioskMode) {
         chromeFlags += `--autoplay-policy=no-user-gesture-required --app="${url}" --start-fullscreen --kiosk --disable-features=Translate,ContextMenuSearchWebFor,ImageSearch`;
+      } else if (this.isPkg) {
+        chromeFlags += `--autoplay-policy=no-user-gesture-required --app="${url}" --start-fullscreen --window-size=1920,1080`;
       } else {
         chromeFlags += `--app="${url}" --auto-open-devtools-for-tabs`;
       }
@@ -446,6 +450,8 @@ class ServerSetup {
    * @param {Object} express - Express модуль (для express.static)
    */
   setupStaticFiles(app, express) {
+    const staticAssetPattern = /\.(js|mjs|css|png|jpe?g|gif|svg|webp|ico|woff2?|otf|ttf|eot|map|mp4|webm|json)$/i;
+
     // Раздача статических файлов из build (CSS, JS, изображения и т.д.)
     // Размещено после API маршрутов, чтобы API запросы обрабатывались первыми
     app.use(express.static(this.buildDir));
@@ -457,6 +463,12 @@ class ServerSetup {
       if (req.path.startsWith('/api')) {
         return next();
       }
+
+      // Не подменяем статику index.html — иначе CSS/JS ломают вёрстку
+      if (staticAssetPattern.test(req.path.split('?')[0])) {
+        return res.status(404).send('Not found');
+      }
+
       // Для всех остальных запросов возвращаем index.html
       res.sendFile(path.join(this.buildDir, this.config.indexHtmlPath));
     });

@@ -219,27 +219,27 @@ function CatalogItem() {
                   />
                 </div>
                 <div className={styles.catalogItemGalleryControls}>
-                  <div className={styles.catalogItemNav}>
-                    <button
-                      className={styles.catalogItemGalleryNavBtn}
-                      onClick={handlePrevPhoto}
-                      disabled={currentPhotos.length <= 1}
-                      aria-label="Предыдущее фото"
-                    >
-                      <ArrowBackIosNewIcon />
-                    </button>
-                    <span className={styles.catalogItemGalleryCounter}>
-                      {currentPhotoIndex + 1} / {currentPhotos.length}
-                    </span>
-                    <button
-                      className={styles.catalogItemGalleryNavBtn}
-                      onClick={handleNextPhoto}
-                      disabled={currentPhotos.length <= 1}
-                      aria-label="Следующее фото"
-                    >
-                      <ArrowForwardIosIcon />
-                    </button>
-                  </div>
+                  {currentPhotos.length > 1 && (
+                    <div className={styles.catalogItemNav}>
+                      <button
+                        className={styles.catalogItemGalleryNavBtn}
+                        onClick={handlePrevPhoto}
+                        aria-label="Предыдущее фото"
+                      >
+                        <ArrowBackIosNewIcon />
+                      </button>
+                      <span className={styles.catalogItemGalleryCounter}>
+                        {currentPhotoIndex + 1} / {currentPhotos.length}
+                      </span>
+                      <button
+                        className={styles.catalogItemGalleryNavBtn}
+                        onClick={handleNextPhoto}
+                        aria-label="Следующее фото"
+                      >
+                        <ArrowForwardIosIcon />
+                      </button>
+                    </div>
+                  )}
                   <button
                     className={styles.catalogItemFullscreenButton}
                     onClick={handleFullscreen}

@@ -99,3 +99,55 @@
     font-size: 16px;
   }
 }
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+  .tinderStartContent {
+    padding: 100px 70px;
+  }
+
+  .tinderStartTitle {
+    font-size: 52px;
+  }
+
+  .tinderStartBottom {
+    gap: 32px;
+  }
+
+  .tinderStartBtn {
+    padding: 20px 70px;
+    font-size: 24px;
+  }
+
+  .tinderBackBtn {
+    bottom: 50px;
+    left: 50px;
+    padding: 16px 34px;
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .tinderStartContent {
+    padding: 140px 90px;
+  }
+
+  .tinderStartTitle {
+    font-size: 72px;
+  }
+
+  .tinderStartBottom {
+    gap: 44px;
+  }
+
+  .tinderStartBtn {
+    padding: 24px 90px;
+    font-size: 34px;
+  }
+
+  .tinderBackBtn {
+    bottom: 70px;
+    left: 70px;
+    padding: 22px 44px;
+    font-size: 34px;
+  }
+}

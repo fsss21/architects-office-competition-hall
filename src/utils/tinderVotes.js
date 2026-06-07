@@ -1,14 +1,21 @@
 const STORAGE_KEY = 'tinder-votes'
 
 export async function fetchVotes() {
+  const localData = getLocalVotes()
+
   try {
     const res = await fetch('/api/tinder/votes')
-    const apiData = res.ok ? await res.json() : {}
-    const localData = getLocalVotes()
-    return mergeVotes(apiData, localData)
+    if (res.ok) {
+      const apiData = await res.json()
+      if (typeof apiData === 'object' && apiData !== null && !Array.isArray(apiData)) {
+        return mergeVotes(apiData, localData)
+      }
+    }
   } catch {
-    return getLocalVotes()
+    // API недоступен — используем только localStorage
   }
+
+  return localData
 }
 
 export async function submitVote(itemId) {
@@ -20,10 +27,11 @@ export async function submitVote(itemId) {
     })
     if (res.ok) return true
   } catch {
-    // API недоступен — сохраняем в localStorage
-    addLocalVote(itemId)
+    // API недоступен — сохраняем локально
   }
-  return false
+
+  addLocalVote(itemId)
+  return true
 }
 
 function getLocalVotes() {
@@ -50,7 +58,9 @@ function addLocalVote(itemId) {
 function mergeVotes(api, local) {
   const out = { ...api }
   for (const [k, v] of Object.entries(local)) {
-    out[k] = (Number(out[k]) || 0) + (Number(v) || 0)
+    if (!(k in out)) {
+      out[k] = Number(v) || 0
+    }
   }
   return out
 }

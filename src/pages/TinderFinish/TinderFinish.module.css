@@ -138,3 +138,87 @@
     width: min(320px, 70vw);
   }
 }
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+  .tinderFinish {
+    padding-top: 140px;
+  }
+
+  .tinderFinishContent {
+    padding: 100px;
+    min-height: calc(100vh - 260px);
+  }
+
+  .tinderFinishTitle {
+    font-size: 52px;
+    margin: 32px 0 48px;
+  }
+
+  .tinderFinishCard {
+    width: min(560px, 55vw);
+  }
+
+  .tinderFinishFrameWrap {
+    max-height: min(700px, 70vh);
+  }
+
+  .tinderFinishOverlay {
+    padding: 36px 24px;
+    margin-top: -24%;
+  }
+
+  .tinderFinishLabel {
+    font-size: 22px;
+  }
+
+  .tinderFinishName {
+    font-size: 26px;
+  }
+
+  .tinderFinishVotes {
+    font-size: 20px;
+    padding: 12px 28px;
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .tinderFinish {
+    padding-top: 180px;
+  }
+
+  .tinderFinishContent {
+    padding: 120px;
+    min-height: calc(100vh - 360px);
+  }
+
+  .tinderFinishTitle {
+    font-size: 72px;
+    margin: 44px 0 64px;
+  }
+
+  .tinderFinishCard {
+    width: min(720px, 55vw);
+  }
+
+  .tinderFinishFrameWrap {
+    max-height: min(980px, 78vh);
+  }
+
+  .tinderFinishOverlay {
+    padding: 44px 32px;
+    margin-top: -28%;
+  }
+
+  .tinderFinishLabel {
+    font-size: 30px;
+  }
+
+  .tinderFinishName {
+    font-size: 36px;
+  }
+
+  .tinderFinishVotes {
+    font-size: 30px;
+    padding: 16px 34px;
+  }
+}

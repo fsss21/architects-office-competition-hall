@@ -156,6 +156,100 @@
   }
 }
 
+@media (min-width: 2560px) and (min-height: 1440px) {
+  .tinderLeader {
+    padding-top: 140px;
+  }
+
+  .tinderLeaderTitle {
+    font-size: 52px;
+  }
+
+  .tinderLeaderBlocks {
+    min-height: min(900px, calc(var(--app-height, 100vh) - 420px));
+  }
+
+  .tinderLeaderBlock {
+    padding: 24px 36px;
+    max-width: 900px;
+  }
+
+  .tinderLeaderNum {
+    font-size: 74px;
+  }
+
+  .tinderLeaderFrameWrap {
+    width: 140px;
+    height: 186px;
+  }
+
+  .tinderLeaderLabel {
+    font-size: 36px;
+  }
+
+  .tinderLeaderVotes {
+    font-size: 28px;
+  }
+
+  .tinderLeaderSubtitle {
+    font-size: 32px;
+    margin: 0 0 28px;
+  }
+
+  .tinderLeaderBtnDesc {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .tinderLeader {
+    padding-top: 180px;
+  }
+
+  .tinderLeaderTitle {
+    font-size: 72px;
+  }
+
+  .tinderLeaderBlocks {
+    min-height: min(1200px, calc(var(--app-height, 100vh) - 520px));
+  }
+
+  .tinderLeaderBlock {
+    padding: 30px 44px;
+    max-width: 1100px;
+  }
+
+  .tinderLeaderNum {
+    font-size: 110px;
+  }
+
+  .tinderLeaderFrameWrap {
+    width: 190px;
+    height: 253px;
+  }
+
+  .tinderLeaderLabel {
+    font-size: 52px;
+  }
+
+  .tinderLeaderVotes {
+    font-size: 40px;
+  }
+
+  .tinderLeaderSubtitle {
+    font-size: 42px;
+    margin: 0 0 40px;
+  }
+
+  .tinderLeaderBtnDesc {
+    font-size: 44px;
+  }
+
+  .tinderLeaderVs {
+    font-size: 54px;
+  }
+}
+
 .tinderLeaderSubtitle {
   font-family: 'Anticva';
   font-size: 24px;

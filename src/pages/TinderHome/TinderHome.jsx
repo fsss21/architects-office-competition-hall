@@ -50,17 +50,24 @@ function TinderHome() {
   const currentItem = items[currentIndex] || null
   const itemImg = currentItem ? itemImages[currentItem.id] : null
 
-  const handleReject = () => {
+  const goToNextOrFinish = () => {
     if (currentIndex < items.length - 1) {
       setCurrentIndex((i) => i + 1)
+    } else {
+      navigate('/tinder/finish')
     }
+  }
+
+  const handleReject = () => {
+    if (!currentItem) return
+    goToNextOrFinish()
   }
 
   const handleVote = async () => {
     if (!currentItem) return
     setUserVotedItemId(currentItem.id)
     await submitVote(currentItem.id)
-    navigate('/tinder/finish')
+    goToNextOrFinish()
   }
 
   const handleSuperLike = async () => {
@@ -68,7 +75,7 @@ function TinderHome() {
     setUserVotedItemId(currentItem.id)
     await submitVote(currentItem.id)
     await submitVote(currentItem.id)
-    navigate('/tinder/finish')
+    goToNextOrFinish()
   }
 
   const handleLearnMore = () => {
@@ -114,8 +121,7 @@ function TinderHome() {
               type="button"
               className={styles.tinderBtnCircle}
               onClick={handleReject}
-              disabled={currentIndex >= items.length - 1 && items.length <= 1}
-              aria-label="Пропустить"
+              aria-label="Не нравится"
             >
               <CloseIcon className={styles.tinderBtnIcon} />
             </button>

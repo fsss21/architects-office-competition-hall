@@ -59,7 +59,11 @@ function TinderLeader() {
     .sort((a, b) => b.votes - a.votes)
     .slice(0, 3)
 
-  const userChoice = items.find((i) => i.id === userVotedItemId) || null
+  const userChoice = userVotedItemId != null
+    ? items.find((i) => i.id === userVotedItemId) || null
+    : null
+
+  const historicalWinner = items.find((i) => i.section === 'winner') || null
 
   const handleBack = () => navigate('/tinder/finish')
 
@@ -101,17 +105,29 @@ function TinderLeader() {
         <div className={styles.tinderLeaderComparison}>
           <button type="button" className={styles.tinderLeaderBtn}>
             <span className={styles.tinderLeaderBtnTitle}>ваш выбор</span>
-            {userChoice && (
-              <span className={styles.tinderLeaderBtnDesc}>{userChoice.label}</span>
+            {userChoice ? (
+              <>
+                <span className={styles.tinderLeaderBtnDesc}>{userChoice.label}</span>
+                <span className={styles.tinderLeaderBtnSubDesc}>{userChoice.name}</span>
+              </>
+            ) : (
+              <span className={styles.tinderLeaderBtnDesc}>Вы не выбрали проект</span>
             )}
           </button>
           <span className={styles.tinderLeaderVs}>VS</span>
           <button type="button" className={styles.tinderLeaderBtn}>
             <span className={styles.tinderLeaderBtnTitle}>исторический победитель</span>
-            <span className={styles.tinderLeaderBtnDesc}>
-              победивший проект
-            </span>
-            <span className={styles.tinderLeaderBtnSubDesc}>победитель конкурса 1957 года</span>
+            {historicalWinner ? (
+              <>
+                <span className={styles.tinderLeaderBtnDesc}>{historicalWinner.label}</span>
+                <span className={styles.tinderLeaderBtnSubDesc}>{historicalWinner.name}</span>
+              </>
+            ) : (
+              <>
+                <span className={styles.tinderLeaderBtnDesc}>победивший проект</span>
+                <span className={styles.tinderLeaderBtnSubDesc}>победитель конкурса 1957 года</span>
+              </>
+            )}
           </button>
         </div>
       </div>

@@ -224,8 +224,13 @@
 .catalogItemGalleryControls{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: 800px;
+}
+
+.catalogItemGalleryControls:has(.catalogItemFullscreenButton:only-child) {
+  justify-content: flex-end;
 }
 
 .catalogItemNav {
@@ -323,5 +328,150 @@
 
   .catalogItemCenterText p {
     font-size: 1rem;
+  }
+}
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+  .catalogItem {
+    padding-top: 140px;
+  }
+
+  .catalogItemMainContent {
+    height: calc(var(--app-height, 100vh) - 260px);
+    max-height: calc(var(--app-height, 100vh) - 260px);
+    min-height: 0;
+    margin-top: 0;
+  }
+
+  .catalogItemTextBlock {
+    padding: 44px;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .catalogItemTextBlock h2 {
+    font-size: 3rem;
+    margin-bottom: 28px;
+  }
+
+  .catalogItemField {
+    font-size: 1.45rem;
+  }
+
+  .catalogItemGalleryBlock {
+    max-width: 1300px;
+  }
+
+  .catalogItemGalleryWrapper {
+    max-width: 1450px;
+  }
+
+  .catalogItemGalleryWrapper :global(div[class*="photoGalleryContainer"]) {
+    min-height: 620px;
+    max-height: 820px;
+  }
+
+  .catalogItemGalleryControls {
+    max-width: 1450px;
+  }
+
+  .catalogItemNav {
+    gap: 32px;
+  }
+
+  .catalogItemGalleryNavBtn {
+    width: 64px;
+    height: 64px;
+    font-size: 30px;
+  }
+
+  .catalogItemGalleryCounter {
+    font-size: 26px;
+    min-width: 120px;
+  }
+
+  .catalogItemFullscreenButton {
+    font-size: 60px;
+  }
+
+  .catalogItemNoPhoto {
+    min-height: 700px;
+    max-height: 820px;
+  }
+
+  .catalogItemBtn {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .catalogItem {
+    padding-top: 180px;
+  }
+
+  .catalogItemMainContent {
+    height: calc(var(--app-height, 100vh) - 360px);
+    max-height: calc(var(--app-height, 100vh) - 360px);
+    min-height: 0;
+  }
+
+  .catalogItemTextBlock {
+    padding: 56px;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .catalogItemTextBlock h2 {
+    font-size: 4.4rem;
+    margin-bottom: 44px;
+  }
+
+  .catalogItemField {
+    font-size: 2.1rem;
+  }
+
+  .catalogItemGalleryBlock {
+    max-width: 1900px;
+  }
+
+  .catalogItemGalleryWrapper {
+    max-width: 2200px;
+  }
+
+  .catalogItemGalleryWrapper :global(div[class*="photoGalleryContainer"]) {
+    min-height: 920px;
+    max-height: 1180px;
+  }
+
+  .catalogItemGalleryControls {
+    max-width: 2200px;
+  }
+
+  .catalogItemNav {
+    gap: 44px;
+  }
+
+  .catalogItemGalleryNavBtn {
+    width: 88px;
+    height: 88px;
+    font-size: 40px;
+  }
+
+  .catalogItemGalleryCounter {
+    font-size: 36px;
+    min-width: 160px;
+  }
+
+  .catalogItemFullscreenButton {
+    font-size: 86px;
+  }
+
+  .catalogItemNoPhoto {
+    min-height: 1060px;
+    max-height: 1180px;
+  }
+
+  .catalogItemBtn {
+    font-size: 1.8rem;
   }
 }
